@@ -1,0 +1,7 @@
+.row-full {
+    width:100%;
+}
+
+.custom-control .custom-switch >.custom-control-input {
+    cursor: pointer;
+}
