@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title > GESTION DES PATIENTS</title>
+    <title > Gestion des paiements</title>
         <?php include("header.php"); ?>
     
   </head>
