@@ -30,6 +30,49 @@ $(document).ready(function() {
         //login();
     });
 
+   // Parascolaire
+       function createParascolaire() {
+        //create_Parascolaire_form
+        $.ajax({
+            url:"./parascolaire/add.php",
+            method:"post",
+            data: $("#create_parascolaire_form").serialize(),
+            success:function(response) {
+                if(response=="OK") {
+                    showInfo("Activité parascolaire ajoutée avec succès.");
+                    setTimeout(
+                        function () {
+                            $("#modalCreerParascolaire").hide();
+                            window.open('parascolaire.php?add=ok', '_self');
+                        }, 2000);
+                }
+                else {  
+                    showError("Echec de l'ajout de l'activité parascolaire: "+response.responseText);
+                    setTimeout(
+                        function() {
+                            $("#modalCreerParascolaire").hide();
+                            window.open('parascolaire.php?add=ko','_self');},2000);
+                }
+            },
+            error:function(response) {
+                showError("Echec de l'ajout de l'activité parascolaire: "+response);
+                /*  setTimeout(
+                 function() {
+                 $("#modalCreerMedecin").hide();
+                 window.open('medecin.php?auth=ko','_self');},2000);*/
+                /* setTimeout(
+                 function() {
+                 $("#modalCreerMedecin").hide();
+                 window.open('medecin.php?auth=ko','_self');},2000);*/
+            }
+        });
+    }
+
+
+
+
+
+    // Transport
     function createTransport() {
         //create_transport_form
         $.ajax({
@@ -210,6 +253,14 @@ $(document).ready(function() {
         });
     }
 
+    
+    $("#btn_modal_edit_transport").click(function() {
+        var tr = $(this).parents("tr");
+        var matricule = tr.find('td').data("tr-montant"); 
+        var id=tr.find("tr td").data("tr-id");
+        console.log(matricule);
+    });
+    
     function getMedecins() {
         $.ajax({
            url:"medecin.php",
@@ -241,6 +292,11 @@ $(document).ready(function() {
         e.preventDefault();
         createDossierForTransport();
     });
+
+   $("#create_parascolaire_form").submit(function(e) {
+      e.preventDefault();
+      createParascolaire();
+   });
 
     $("#create_rdv_form").submit(function(e) {
         e.preventDefault();

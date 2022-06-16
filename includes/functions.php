@@ -10,6 +10,27 @@ if (!function_exists('e')) {
 	}
 }
 
+if(!function_exists("setGammeStyle")) {
+function setGammeStyle($gamme) {
+        $style="";
+
+        switch($gamme) {
+
+            case "A": 
+               $style="green";
+               break;
+
+            case "B": 
+            $style="orange";
+               break ;
+
+            case "C":
+            $style="red"; 
+               break;
+        }
+        return $style;
+    }
+}
 //like micropost
 if (!function_exists('like_topic')) {
 	function like_topic($topic_id){

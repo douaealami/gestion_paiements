@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['user_id'])) {
     echo "<script>window.open('login.php?auth=no','_self')</script>";
 }
 else {
@@ -8,8 +8,8 @@ else {
 require("config/bd.php");
 
 
-// Lister tous les patients
-$sel_sql="select p.id,p.cin,p.nom,p.prenom,p.sexe,p.telephone,p.adresse, dm.id as id_dm, dm.date_creation, dm.diagnostique, dm.observation from patient p left join dossierpatient dm on dm.id=p.id";
+// Lister toutes les cantines
+$sel_sql="select * from cantine";
 
 $result=mysqli_query($con,$sel_sql);
 ?>
@@ -18,7 +18,7 @@ $result=mysqli_query($con,$sel_sql);
 <html>
 <head>
 
-    <title>Patients - Gestion Hôpital</title>
+    <title>Cantine - Gestion des Paiements</title>
 
 </head>
 
@@ -36,72 +36,50 @@ $result=mysqli_query($con,$sel_sql);
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Patients</li>
+            <li class="breadcrumb-item active" aria-current="page">Cantine</li>
         </ol>
     </nav>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreerPatient">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreerCantine">
         <i class="fas fa-plus-circle"></i> <b>Créer</b>
     </button>
-    <!-- modalCreerPatient-->
-    <form id="create_patient_form" action="patients/add.php">
+    <!-- modalCreerCantine-->
+    <form id="create_transport_form" action="transport/add.php">
 
-        <div class="modal fade" id="modalCreerPatient" tabindex="-1" aria-labelledby="modalCreerPatientLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCreerCantine" tabindex="-1" aria-labelledby="modalCreerCantineLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalCreerPatientLabel"><i class="fas fa-user-plus"></i> Nouveau Patient</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h4 class="modal-title" id="modalCreerCantineLabel"><i class="fas fa-user-plus"></i> Nouvelle Cantine</h4>
+                        <a  class="fas fa-times" data-dismiss="modal" aria-label="Close" style="cursor: pointer;"></a>
                     </div>
                     <div class="modal-body">
                         <form method="post" action="" class="well">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><b><i class="fas fa-id-card"></i></b></span>
-                                <input type="text" name="cin_patient" id="cin_patient" class="form-control form-control-lg" placeholder="A123456" aria-label="cin" aria-describedby="basic-addon1">
+                            <label>Gamme</label>
+                            <div class="ui input">
+                                <input type="text" name="gamme_cantine" id="gamme_cantine" placeholder="GAMME-ABC">
                             </div>
-                            <br>
-                            <div class="input-group mb-3">
+                            <br><br>
+                            <label>Prix</label>
+                            <div class="ui input">
+                                <input type="number"   name="prix_cantine" id="prix_cantine"  placeholder="200" required=""/>
 
-                                <span class="input-group-text"><b>A</b></span>
-                                <input type="text"  class="form-control form-control-lg" name="nom_patient" id="nom_patient"  placeholder="Exemple: ALAMI" required=""/>
+                            </div><br><br>
+                            <label>Disponibilité :</label>
+                            <div class="ui toggle checkbox">
+                              <input type="checkbox" name="is_disponible_cantine" id="is_disponible_cantine">
+                            <label>Disponible ?</label>
+                            </div><br><br>
+                            <label>Description</label>
+                            <div class="ui input">
+                                <input type="text"  class="ui input" name="description_cantine" id="description_cantine"  placeholder="Description cantine ..." required=""/>
 
-                            </div><br>
-                            <div class="input-group mb-3">
-
-                                <span class="input-group-text"><b>A</b></span>
-                                <input type="text"  class="form-control form-control-lg" name="prenom_patient" id="prenom_patient"  placeholder="Exemple: Douae" required=""/>
-
-                            </div><br>
-
-                            <div class="input-group mb-3">
-
-                                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-                                <select name="sexe_patient" id="sexe_patient" class="form-control form-control-lg">
-                                    <option value="Femme">Femme</option>
-                                    <option value="Homme">Homme</option>
-                                </select>
-
-                            </div><br>
-
-                            <div class="input-group mb-3">
-
-                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                <input type="text"  class="form-control form-control-lg" name="telephone_patient" id="telephone_patient"  placeholder="Exemple: 06123456789" required=""/>
-
-                            </div><br>
-
-
-                            <div class="input-group mb-3">
-
-                                <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                <input type="text"  class="form-control form-control-lg" name="adresse_patient" id="adresse_patient"  placeholder="Exemple: Rabat, Maroc" required=""/>
-
-                            </div><br>
+                            </div><br><br>
 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                         <button type="submit" id="envoi_enregistrer" name="envoi_enregistrer" class="btn btn-primary" onclick="return confirm('Confirmer?');return false;"><i class="fas fa-check"></i> Enregistrer</button>
                     </div>
                 </div>
@@ -110,10 +88,13 @@ $result=mysqli_query($con,$sel_sql);
     </form>
     <br>
 
-    <table class="table table-sm table-bordered table-hover">
+    <table class="ui celled table" id="tableCantine">
         <thead>
         <tr>
-            <th>Nom Complet</th>
+            <th>Gamme</th>
+            <th>Prix</th>
+            <th>Disponibilité</th>
+            <th>Description</th>
             <th></th>
         </tr>
         </thead>
@@ -121,147 +102,84 @@ $result=mysqli_query($con,$sel_sql);
     <?php
     $i=0;
     while($row =mysqli_fetch_array($result)) {
-        //patient
-        $id=$row["id"];
-        $cin=$row["cin"];
-        $nom=$row["nom"];
-        $prenom=$row["prenom"];
-        $sexe=$row["sexe"];
-        $telephone=$row["telephone"];
-        $adresse=$row["adresse"];
-
-        //dossiermedical
-        $id_dm=$row["id_dm"];
-        $date_creation=$row["date_creation"];
-        $diagnostique=$row["diagnostique"];
-        $observation=$row["observation"];
+        //Cantine
+        $id=$row["id_cantine"];
+        $gamme=$row["gamme"];
+        $prix=$row["prix"];
+        $is_disponible=$row["is_disponible"];
+        $description=$row["description"];
         $i++;
         ?>
         <tr>
-            <td><i class="fas  fa-user"></i>
-                <?php if($id_dm==null) { ?>
-                    <i class="fas fa-exclamation-triangle text-warning" title="Ce patient n'a aucun dossier médical."></i>
-                <?php }?>
-                <?php echo $nom.", ".$prenom; ?></td>
+            <td data-ca-id="<?php echo $id?>" hidden ></td>
+            <td data-ca-gamme="<?php echo $gamme ?>"><a class="ui <?php echo setGammeStyle($gamme);?> label"> <?php echo $gamme; ?></a></td>
+            <td data-ca-prix="<?php echo $prix ?>" ><?php echo $prix; ?></td>
+            <td data-ca-isdispo="<?php echo $is_disponible ?>">
+            <div class="ui <?php echo ($is_disponible==1 ? " checked ": "") ?> read-only checkbox">
+              <input type="checkbox" name="public">
+             <label><?php echo ($is_disponible==1? "Oui":"Non"); ?></label>
+                </div>
+                </td>
+            <td data-ca-description="<?php echo $description ?> "><?php echo $description; ?></td>
+
             <td>
-                <a href="patients/delete.php?id=<?php echo $id; ?>" class="btn btn-danger" onclick="return confirm('Confirmer?');return false;">
-                    <i class="fas fa-ban"></i>
+                <a href="cantine/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">
+                    Supprimer
                 </a>
+                <button id="btn_modal_edit_cantine" type="button" class="ui blue button" data-toggle="modal" data-target="#modalEditerCantine_<?php echo $id; ?>">Editer</button> 
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetailPatient_<?php echo $id;?>">
-                    <i class="fas fa-info-circle"></i>
-                </button>
-
-                <?php if($id_dm==null) { ?>
-
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalAddDossierMedical_<?php echo $id; ?>">
-                        <i class="fas fa-folder-plus"></i>
-                    </button>
-
-                <form id="create_dm_patient_form" action="dossierpatient/add.php">
-                    <div class="modal fade" id="modalAddDossierMedical_<?php echo $id; ?>" data-id="<?php echo $id; ?>">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5><i class="fas fa-2x fa-user-md"></i> Créer un dossier médical pour <b><?php echo $nom.", ".$prenom; ?></b></h5>
-                            </div>
-                                <div class="modal-body">
-                                    <input type="hidden" value="<?php echo $id;?>" name="dm_id_patient" id="dm_id_patient">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><b><i class="fas fa-calendar"></i></b></span>
-                                        <input type="date" name="dm_date_creation_patient" id="dm_date_creation_patient" class="form-control form-control-lg" placeholder="A123456" aria-label="cin" aria-describedby="basic-addon1">
-                                    </div>
-                                    <br>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><b><i class="fas fa-file-medical-alt"></i></b></span>
-                                        <input type="text" name="dm_diagnostique" id="dm_diagnostique" class="form-control form-control-lg" placeholder="Diabète, Allergie..." aria-label="cin" aria-describedby="basic-addon1">
-                                    </div>
-                                    <br>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><b><i class="fas fa-info-circle"></i></b></span>
-                                        <input type="text" name="dm_observation" id="dm_observation" class="form-control form-control-lg" placeholder="Observation abc.." aria-label="cin" aria-describedby="basic-addon1">
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                    <button type="submit" name="envoi_dm_patient" class="btn btn-primary" onclick="return confirm('Confirmer?');return false;"><i class="fas fa-check"></i> Enregistrer</button>
-                                </div>
-                                </div>
-                        </div>
+                <!-- modalCantineEdit-->
+                <div class="modal fade" id="modalEditerCantine_<?php echo $id; ?>" tabindex="2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalCreerCantineLabel"><i class="fas fa-user-plus"></i> Modifier le cantine : <?php echo $gamme;?></h4>
+                        <a  class="fas fa-times" data-dismiss="modal" aria-label="Close" style="cursor: pointer;"></a>
                     </div>
-                    </form>
-            <?php } ?>
-
-                <!-- modalDetailPatient -->
-                <div class="modal fade" id="modalDetailPatient_<?php echo $id;?>" >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5><i class="fas fa-2x fa-user-md"></i> <b><?php echo $nom.", ".$prenom; ?></b></h5>
+                    <div class="modal-body">
+                        <form method="post" action="" class="well">
+                            <label>Gamme</label>
+                            <div class="ui input">
+                                <input type="text" name="gamme_edit_transport" id="gamme_edit_transport"  value="<?php echo $gamme ?>">
                             </div>
-                            <div class="modal-body">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link active" id="infos-tab" data-toggle="tab" href="#infos<?php echo $id;?>" role="tab" aria-controls="infos" aria-selected="true"><i class="fas fa-info-circle text-primary"></i> Informations Générales</a>
-                                    </li>
-        <?php if($id_dm!=null) { ?>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="dossier-tab" data-toggle="tab" href="#dossier<?php echo $id;?>" role="tab" aria-controls="dossier" aria-selected="false"><i class="fas fa-notes-medical text-danger"></i> Dossier Médical</a>
-                                    </li>
-            <?php }?>
+                            <br><br>
+                            <label>Prix</label>
+                            <div class="ui input">
+                                <input type="number"  name="prix_edit_transport" id="prix_edit_transport" value="<?php echo $prix?>" required=""/>
 
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="infos<?php echo $id;?>" role="tabpanel" aria-labelledby="infos-tab">
-                                        <div class="card" style="width: 100%;">
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?php echo $nom.", ".$prenom; ?></h5>
-                                                <h6 class="card-subtitle mb-2 text-muted"><?php echo $cin; ?></h6><br>
-                                                <p class="card-text"><i class="fas fa-home"></i> <?php echo $adresse; ?></p>
-                                                <a href="#" class="card-link"><i class="fas fa-phone"></i>  <?php echo $telephone;?></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php if($id_dm!=null) { ?>
-                                    <div class="tab-pane fade" id="dossier<?php echo $id;?>" role="tabpanel" aria-labelledby="dossier-tab">
-                                        <br>
-                                        <table style="width:100%">
-                                            <tr>
-                                                <th> <label class="card-text text-info">Date de Création:</label></th>
-                                                <td><span><?php echo $date_creation; ?></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th><label class="card-text text-info">Diagnostique: </label> </th>
-                                                <td><span><?php echo $diagnostique; ?></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>  <label class="card-text text-info">Observations: </label></th>
-                                                <td><span><?php echo $observation; ?></span></td>
-                                            </tr>
-                                        </table>
+                            </div><br><br>
+                            <label>Disponible:</label>
+                            <div class="ui <?php ( $is_disponible==1? "checked":"") ?> checkbox">
+                              <input type="checkbox" checked="<?php echo (is_disponible==1? "checked":"")?>">
+                              <label>Oui / Non </label>
+                            </div><br><br>
+                            <label>Description</label>
+                            <div class="ui input">
+                                <input type="text"  class="ui input" name="description_edit_transport" id="description_edit_transport"  value="<?php echo $description; ?>" required=""/>
 
-                                    </div>
-                                    <?php } ?>
+                            </div><br><br>
 
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button class="ui blue button" onclick="return confirm('Confirmer?');return false;" data-cantine-id="<?php echo $id?>" name="update_cantine" id="update_transport">
+                    Sauvegarder
+                </a>
                     </div>
                 </div>
-        </tr>
-        <?php } ?>
+            </div>
+        </div>
+        <!-- end modalEditCantine -->
+            </td>
+       </tr>
+   <?php }?>
     </tbody>
     </table>
     <small>Total: <?php echo $i;?></small>
+<?php }?>
 </div>
-
     <?php include("footer.php");?>
     <?php include("header.php"); ?>
-
     </body>
     </html>
-  <?php }  ?>

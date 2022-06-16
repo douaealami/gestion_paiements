@@ -87,7 +87,7 @@ $result=mysqli_query($con,$sel_sql);
     </form>
     <br>
 
-    <table class="ui celled table">
+    <table class="ui celled table" id="tableTransport">
         <thead>
         <tr>
             <th>Matricule</th>
@@ -107,21 +107,63 @@ $result=mysqli_query($con,$sel_sql);
         $capacite=$row["capacite"];
         $trajectoire=$row["trajectoire"];
         $montant=$row["montant"];
-      //  $i++;
+        $i++;
         ?>
         <tr>
-            <td><?php echo $matricule; ?></td>
-            <td><?php echo $capacite; ?></td>
-            <td><?php echo $trajectoire; ?></td>
-            <td><?php echo $montant; ?></td>
+            <td data-tr-id="<?php echo $id?>" hidden ></td>
+            <td data-tr-matricule="<?php echo $matricule ?>"><?php echo $matricule; ?></td>
+            <td data-tr-capacite="<?php echo $capacite ?>" ><?php echo $capacite; ?></td>
+            <td data-tr-trajectoire="<?php echo $$trajectoire?>"><?php echo $trajectoire; ?></td>
+            <td data-tr-montant="<?php echo $montant ?> "><?php echo $montant; ?></td>
 
             <td>
                 <a href="transport/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">
                     Supprimer
                 </a>
-                <a href="transport/edit.php?id=<?php echo $id; ?>" class="ui blue button" onclick="return confirm('Confirmer?');return false;">
-                    Editer
+                <button id="btn_modal_edit_transport" type="button" class="ui blue button" data-toggle="modal" data-target="#modalEditerTransport_<?php echo $id; ?>">Editer</button> 
+
+                <!-- modalTransportEdit-->
+                <div class="modal fade" id="modalEditerTransport_<?php echo $id; ?>" tabindex="2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalCreerTransportLabel"><i class="fas fa-user-plus"></i> Modifier le transport : <?php echo $matricule;?></h4>
+                        <a  class="fas fa-times" data-dismiss="modal" aria-label="Close" style="cursor: pointer;"></a>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="" class="well">
+                            <label>Matricule</label>
+                            <div class="ui input">
+                                <input type="text" name="matricule_edit_transport" id="matricule_edit_transport"  value="<?php echo $matricule ?>" aria-label="matricule_edit_transport" aria-describedby="basic-addon1">
+                            </div>
+                            <br><br>
+                            <label>Capacité</label>
+                            <div class="ui input">
+                                <input type="number"   name="capacite_edit_transport" id="capacite_edit_transport" value="<?php echo $capacite?>" required=""/>
+
+                            </div><br><br>
+                            <label>Trajectoire:</label>
+                            <div class="ui input">
+                                <input type="text"  name="trajectoire_edit_transport" id="trajectoire_edit_transport" value="<?php echo $trajectoire ?>"   required=""/>
+                            </div><br><br>
+                            <label>Montant</label>
+                            <div class="ui input">
+                                <input type="text"  class="ui input" name="montant_edit_transport" id="montant_edit_transport"  value="<?php echo $montant; ?>" required=""/>
+
+                            </div><br><br>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button class="ui blue button" onclick="return confirm('Confirmer?');return false;" data-transport-id="<?php echo $id?>" name="update_transport" id="update_transport">
+                    Sauvegarder
                 </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modalEditTransport -->
             </td>
        </tr>
    <?php }?>
