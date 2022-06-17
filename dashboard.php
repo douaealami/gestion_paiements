@@ -35,4 +35,28 @@
             </div>
         </div>
     </a>
+
+    <a href="paiements.php" class="list-group-item d-flex justify-content-between align-items-start  list-group-item-action ">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-3x fa-dollar-sign"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Gestion des paiements</div>
+                    <small><i>Consulter la liste des paiements, créer un nouveau paiement...</i></small>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="courssup.php" class="list-group-item d-flex justify-content-between align-items-start  list-group-item-action ">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-3x fa-chalkboard-teacher"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Gestion des cours supplémentaires</div>
+                    <small><i>Consulter la liste des cours supplémentaires, créer un nouveau cours supplémentaire...</i></small>
+                </div>
+            </div>
+        </div>
+    </a>
 </ul>

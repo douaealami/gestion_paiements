@@ -44,7 +44,7 @@ $result=mysqli_query($con,$sel_sql);
         <i class="fas fa-plus-circle"></i> <b>Créer</b>
     </button>
     <!-- modalCreerParascolaire-->
-    <form id="create_parascolaire_form" action="parascolaire/add.php">
+    <form id="create_parascolaire_form" action="parascolaires/add.php">
 
         <div class="modal fade" id="modalCreerParascolaire" tabindex="-1" aria-labelledby="modalCreerParascolaireLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -100,7 +100,7 @@ $result=mysqli_query($con,$sel_sql);
             <td data-ps-type="<?php echo $type ?>"?><?php echo $type ?> </td>
             <td data-ps-montant="<?php echo $montant ?>" ><?php echo $montant; ?></td>
             <td>
-                <a href="parascolaire/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">
+                <a href="parascolaires/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">
                     Supprimer
                 </a>
                 <button id="btn_modal_edit_parascolaire" type="button" class="ui blue button" data-toggle="modal" data-target="#modalEditerParascolaire_<?php echo $id; ?>">Editer</button> 

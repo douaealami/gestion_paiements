@@ -5,7 +5,7 @@ include "../config/bd.php";
 
 
     $id=intval($_GET["id"]);
-    $sql="delete from parascolaires where id_parascolaires=$id";
+    $sql="delete from parascolaires where id_parscolaires='$id'";
     $q = mysqli_query($con, $sql);
 
     if($q) {
@@ -14,5 +14,5 @@ include "../config/bd.php";
     }
 else {
     echo "<script>showError('Echec de la suppression de l'activité parascolaire. Veuillez réessayer plus tard.');</script>";
-    echo "<script>window.open('./parascolaire.php?delete=ko','_self')</script>";
+    echo "<script>window.open('../parascolaire.php?delete=ko','_self')</script>";
 }

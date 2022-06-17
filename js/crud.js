@@ -34,7 +34,7 @@ $(document).ready(function() {
        function createParascolaire() {
         //create_Parascolaire_form
         $.ajax({
-            url:"./parascolaire/add.php",
+            url:"./parascolaires/add.php",
             method:"post",
             data: $("#create_parascolaire_form").serialize(),
             success:function(response) {
@@ -56,14 +56,6 @@ $(document).ready(function() {
             },
             error:function(response) {
                 showError("Echec de l'ajout de l'activité parascolaire: "+response);
-                /*  setTimeout(
-                 function() {
-                 $("#modalCreerMedecin").hide();
-                 window.open('medecin.php?auth=ko','_self');},2000);*/
-                /* setTimeout(
-                 function() {
-                 $("#modalCreerMedecin").hide();
-                 window.open('medecin.php?auth=ko','_self');},2000);*/
             }
         });
     }
