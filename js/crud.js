@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    getTopPaiements();
+
+    getTopParascolaires();
+    
     function login() {
         $.ajax({
             url:'./login.php',
@@ -270,6 +274,38 @@ $(document).ready(function() {
         return medecins;
     }
 
+   function getTopPaiements() {
+    $.ajax({
+            url:"./paiement/PaiementDAO.php",
+            method:"GET",
+            dataType:"json",
+            success:function(response) {
+                $("#t_top_paiement tbody").append("<tr><td></td><td>"+response.date_paiement+"</td><td>"+response.nom_prenom_eleve+"</td></tr>");
+               
+            },
+            error:function(response) {
+                showError("Echec du chargement des paiements: "+response);
+            }
+        });
+
+   }
+
+      function getTopParascolaires() {
+    $.ajax({
+            url:"./parascolaires/ParascolaireDAO.php",
+            method:"GET",
+            dataType:"json",
+            success:function(response) {
+                $.each(response,function(i,item) {
+                $("#t_top_parascolaire tbody").append("<tr><td>#</td><td>"+item.type+"</td><td>"+item.somme+"</td></tr>");
+               });
+            },
+            error:function(response) {
+                showError("Echec du chargement des paiements: "+response);
+            }
+        });
+
+   }
     $("#create_medecin_form").submit(function(e) {
         e.preventDefault();
         createMedecin();
@@ -300,6 +336,7 @@ $(document).ready(function() {
         validateRendezVous();
     });
 
+ 
     //rdv_validate_form
     //create_dm_transport_form
 });

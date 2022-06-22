@@ -64,6 +64,11 @@ $result=mysqli_query($con,$sel_sql);
                             <div class="ui input">
                                 <input type="number" name="montant_parascolaire" id="montant_parascolaire"  placeholder="200" required=""/>
 
+                            </div><br><br>
+                             <label>Description</label>
+                            <div class="ui input">
+                                <input type="text" name="description_parascolaire" id="description_parascolaire"  placeholder="Description activité..."/>
+
                             </div>
                         </form>
                     </div>
@@ -82,6 +87,7 @@ $result=mysqli_query($con,$sel_sql);
         <tr>
             <th>Type</th>
             <th>Montant</th>
+            <th>Description</th>
             <th></th>
         </tr>
         </thead>
@@ -93,12 +99,14 @@ $result=mysqli_query($con,$sel_sql);
         $id=$row["id_parscolaires"];
         $type=$row["type"];
         $montant=$row["montant"];
+        $description=$row["description"];
         $i++;
         ?>
         <tr>
             <td data-ps-id="<?php echo $id?>" hidden ></td>
             <td data-ps-type="<?php echo $type ?>"?><?php echo $type ?> </td>
-            <td data-ps-montant="<?php echo $montant ?>" ><?php echo $montant; ?></td>
+            <td data-ps-montant="<?php echo $montant ?>" ><?php echo $montant." DH"; ?></td>
+            <td data-ps-description="<?php echo $description ?>" ><?php echo $description; ?></td>
             <td>
                 <a href="parascolaires/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">
                     Supprimer
@@ -123,6 +131,10 @@ $result=mysqli_query($con,$sel_sql);
                             <label>Prix</label>
                             <div class="ui input">
                                 <input type="number"  name="montant_edit_parascolaire" id="prix_edit_parascolaire" value="<?php echo $montant?>" required=""/>
+                            </div><br><br>
+                            <label>Description</label>
+                            <div class="ui input">
+                                <input type="text"  name="description_edit_parascolaire" id="description_edit_parascolaire" value="<?php echo $description?>" required=""/>
                             </div><br><br>
                         </form>
                     </div>

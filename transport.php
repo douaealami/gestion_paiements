@@ -113,8 +113,8 @@ $result=mysqli_query($con,$sel_sql);
             <td data-tr-id="<?php echo $id?>" hidden ></td>
             <td data-tr-matricule="<?php echo $matricule ?>"><?php echo $matricule; ?></td>
             <td data-tr-capacite="<?php echo $capacite ?>" ><?php echo $capacite; ?></td>
-            <td data-tr-trajectoire="<?php echo $$trajectoire?>"><?php echo $trajectoire; ?></td>
-            <td data-tr-montant="<?php echo $montant ?> "><?php echo $montant; ?></td>
+            <td data-tr-trajectoire="<?php echo $trajectoire?>"><?php echo $trajectoire; ?></td>
+            <td data-tr-montant="<?php echo $montant ?> "><?php echo $montant." DH"; ?></td>
 
             <td>
                 <a href="transport/delete.php?id=<?php echo $id; ?>" class="ui red button" onclick="return confirm('Confirmer?');return false;">

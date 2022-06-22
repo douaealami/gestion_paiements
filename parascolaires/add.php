@@ -11,8 +11,9 @@ if(isset($_REQUEST["type_parascolaire"]) &&
     try {
         $type = $_REQUEST["type_parascolaire"];
         $montant = $_REQUEST["montant_parascolaire"];
+        $description=$_REQUEST["description_parascolaire"];
 
-        $sql = "insert into parascolaires(type,montant) values('$type','$montant')";
+        $sql = "insert into parascolaires(type,montant,description) values('$type','$montant','$description')";
         $run = mysqli_query($con, $sql);
         if ($run) {
             echo "OK";

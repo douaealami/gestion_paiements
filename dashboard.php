@@ -1,4 +1,4 @@
-<ul class="list-group">
+<!--<ul class="list-group">
 
     <a href="cantine.php" class="list-group-item d-flex justify-content-between align-items-start  list-group-item-action ">
         <div class="row row-full">
@@ -59,4 +59,61 @@
             </div>
         </div>
     </a>
-</ul>
+</ul>-->
+
+<div class="ui vertical menu">
+     <a href="cantine.php" class="item">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-2x fa-utensils"></i></div>
+            <div class="col col-lg-9">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold"><b>Cantine</b></div>
+        </div>
+                </div>
+            </div>
+    </a>
+
+    <a href="transport.php" class="item">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-2x fa-bus-alt"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><b>Transport</b></div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+     <a href="parascolaire.php" class="item">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-2x fa-puzzle-piece"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><b>Parascolaire</b></div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="paiements.php" class="item ">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-2x fa-dollar-sign"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><b>Paiements</b></div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="courssup.php" class="item ">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-1x fa-chalkboard-teacher"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><b>Cours sup</b></div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
