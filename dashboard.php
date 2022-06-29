@@ -116,4 +116,16 @@
             </div>
         </div>
     </a>
+
+
+    <a href="scolarite.php" class="item ">
+        <div class="row row-full">
+            <div class="col-1"><i class="fas fa-1x fa-chalkboard-teacher"></i></div>
+            <div class="col col-lg-9">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold"><b>Scolarité</b></div>
+                </div>
+            </div>
+        </div>
+    </a>
 </div>

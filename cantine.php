@@ -177,8 +177,8 @@ $result=mysqli_query($con,$sel_sql);
     </tbody>
     </table>
     <small>Total: <?php echo $i;?></small>
-<?php }?>
 </div>
+<?php }?>
     <?php include("footer.php");?>
     <?php include("header.php"); ?>
     </body>
